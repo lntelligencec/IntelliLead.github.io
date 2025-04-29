@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هوش مصنوعی و علوم نوین | پژوهش سرا</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        github: {
+                            dark: '#0d1117',
+                            border: '#30363d',
+                            gray: '#161b22',
+                            text: '#c9d1d9',
+                            blue: '#58a6ff',
+                            purple: '#d2a8ff',
+                            green: '#3fb950',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Vazirmatn', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 7s ease-in-out infinite',
+                        'float-2': 'float 5s ease-in-out infinite 1s',
+                        'pulse-slow': 'pulse 5s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                        'blob-reverse': 'blob-reverse 9s infinite',
+                        'wave': 'wave 8s ease-in-out infinite',
+                        'text-gradient': 'text-gradient 5s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -20px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        'blob-reverse': {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(-30px, 20px) scale(0.9)' },
+                            '66%': { transform: 'translate(20px, -20px) scale(1.1)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        wave: {
+                            '0%, 100%': { transform: 'rotate(0deg)' },
+                            '25%': { transform: 'rotate(5deg)' },
+                            '75%': { transform: 'rotate(-5deg)' },
+                        },
+                        'text-gradient': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #58a6ff, #d2a8ff, #3fb950);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% 200%;
+            animation: text-gradient 5s ease infinite;
+        }
+.card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid #30363d;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: #58a6ff;
+            box-shadow: 0 10px 15px -3px rgba(88, 166, 255, 0.1);
+        }
+        
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown.active .dropdown-content {
+            max-height: 5000px;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown.active .dropdown-icon {
+            transform: rotate(180deg);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #58a6ff;
+            white-space: nowrap;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #58a6ff; }
+        }
+        
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #58a6ff, 0 0 20px #58a6ff;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #58a6ff, 0 0 40px #58a6ff;
+            }
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #58a6ff;
+            top: 20%;
+            left: 10%;
+            animation: blob 15s infinite;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #d2a8ff;
+            top: 60%;
+            left: 30%;
+            animation: blob-reverse 18s infinite;
+        }
+        
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: #3fb950;
+            top: 30%;
+            left: 70%;
+            animation: blob 12s infinite 2s;
+        }
+        
+        .animated-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px dashed rgba(88, 166, 255, 0.3);
+            animation: spin 20s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg) }
+            100% { transform: rotate(360deg) }
+        }
+        
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+    </style>
+</head>
+<body class="bg-github-dark text-github-text">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-github-gray/80 border-b border-github-border backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <i class="fas fa-robot text-3xl text-github-blue animate-bounce"></i>
+                <h1 class="text-2xl font-bold gradient-text">هوش مصنوعی و علوم نوین</h1>
+            </div>
+            <div class="hidden md:flex space-x-6 space-x-reverse">
+<
+<a href="#home" class="hover:text-github-blue transition relative group">
+                    خانه
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-github-blue transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="hover:text-github-blue transition relative group">
+                    درباره
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-github-blue transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#topics" class="hover:text-github-blue transition relative group">
+                    موضوعات
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-github-blue transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#gallery" class="hover:text-github-blue transition relative group">
+                    گالری
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-github-blue transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+            <button class="md:hidden text-xl" id="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-github-gray border-t border-github-border py-2" id="mobile-menu">
+            <div class="flex flex-col space-y-3 px-4">
+                <a href="#home" class="hover:text-github-blue transition py-2 flex items-center">
+                    <i class="fas fa-home ml-2"></i>
+                    خانه
+                </a>
+                <a href="#about" class="hover:text-github-blue transition py-2 flex items-center">
+                    <i class="fas fa-info-circle ml-2"></i>
+                    درباره
+                </a>
+                <a href="#topics" class="hover:text-github-blue transition py-2 flex items-center">
+                    <i class="fas fa-book ml-2"></i>
+                    موضوعات
+                </a>
+                <a href="#gallery" class="hover:text-github-blue transition py-2 flex items-center">
+                    <i class="fas fa-images ml-2"></i>
+                    گالری
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-20 px-4 relative overflow-hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <div class="mb-6">
+                    <span class="bg-github-blue/10 text-github-blue px-3 py-1 rounded-full text-sm font-medium animate-pulse">
+                        پژوهش سرا - هنرستان والفجر
+                    </span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-4 typewriter">به دنیای هوش مصنوعی خوش آمدید</h2>
+                <p class="text-xl mb-6 text-github-text opacity-90 animate-fade-in">کشف دنیای شگفت انگیز هوش مصنوعی، یادگیری ماشین، اینترنت اشیا و نانو فناوری با زبانی ساده</p>
+                <div class="flex space-x-4 space-x-reverse">
+                    <a href="#topics" class="bg-github-blue text-github-dark px-6 py-3 rounded-lg font-bold hover:bg-opacity-90 transition flex items-center group">
+                        شروع یادگیری
+                        <i class="fas fa-arrow-left mr-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#about" class="border border-github-blue text-github-blue px-6 py-3 rounded-lg font-bold hover:bg-github-blue hover:bg-opacity-10 transition flex items-center group">
+                        درباره ما
+                        <i class="fas fa-user ml-2 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-10 flex space-x-4 space-x-reverse">
+                    <div class="tech-icon text-github-blue text-2xl">
+                        <i class="fas fa-brain"></i>
+                    </div>
+<div class="tech-icon text-github-purple text-2xl">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="tech-icon text-github-green text-2xl">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="tech-icon text-github-blue text-2xl">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center relative">
+                <div class="relative w-full max-w-md">
+                    <div class="absolute -top-5 -right-5 w-32 h-32 bg-github-purple rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="absolute -bottom-5 -left-5 w-32 h-32 bg-github-blue rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                    <div class="absolute top-10 left-10 w-32 h-32 bg-github-green rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                    <div class="relative bg-github-gray border border-github-border rounded-xl p-2 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="AI and Future Tech" 
+                             class="rounded-lg w-full h-auto transition-transform duration-500 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Circles -->
+        <div class="animated-circle w-96 h-96 -left-48 -top-48"></div>
+        <div class="animated-circle w-64 h-64 -right-32 bottom-0"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-4 bg-github-gray/50 border-y border-github-border relative overflow-hidden">
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-3xl font-bold mb-12 text-center gradient-text animate-float">درباره این پروژه</h2>
+            
+            <div class="flex flex-col md:flex-row items-center mb-12">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center animate-float">
+                    <div class="relative w-64 h-64 rounded-full overflow-hidden border-4 border-github-blue shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                             alt="رعنا پرموزه" 
+                             class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-github-blue/10 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
+                            <span class="text-white font-bold text-xl">رعنا پرموزه</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pr-8">
+                    <h3 class="text-2xl font-bold mb-4 text-github-blue animate-fade-in">سلام، من رعنا پرموزه هستم</h3>
+                    <p class="mb-4 animate-fade-in">من یک کارآموز هنرستان والفجر در استان فارس، ناحیه زرین دشت شهر پیر هستم. این وبسایت را برای شرکت در جشنواره پژوهش سرا طراحی کرده‌ام تا مفاهیم پیچیده علوم نوین را به زبان ساده برای هم‌سن و سالانم توضیح دهم.</p>
+                    <p class="mb-4 animate-fade-in">هدف من این است که با ارائه اطلاعات دقیق و طراحی جذاب، توجه داوران و بازدیدکنندگان را جلب کنم و نشان دهم که فناوری‌های آینده چقدر می‌توانند هیجان‌انگیز و قابل درک باشند.</p>
+                    <div class="flex flex-wrap gap-2 mt-6 animate-fade-in">
+                        <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm hover:bg-github-blue hover:text-white transition">هنرستا
+ن والفجر</span>
+                        <span class="bg-github-dark border border-github-purple text-github-purple px-3 py-1 rounded-full text-sm hover:bg-github-purple hover:text-white transition">استان فارس</span>
+                        <span class="bg-github-dark border border-github-green text-github-green px-3 py-1 rounded-full text-sm hover:bg-github-green hover:text-white transition">زرین دشت</span>
+                        <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm hover:bg-github-blue hover:text-white transition">پژوهش سرا</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
+                <div class="bg-github-dark border border-github-border rounded-xl p-6 card-hover animate-float">
+                    <div class="text-github-blue text-4xl mb-4 animate-pulse">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">هدف ما</h3>
+                    <p>تبدیل مفاهیم پیچیده علمی به مطالب ساده و قابل فهم برای نوجوانان و جوانان علاقه‌مند به فناوری</p>
+                </div>
+                <div class="bg-github-dark border border-github-border rounded-xl p-6 card-hover animate-float-reverse">
+                    <div class="text-github-purple text-4xl mb-4 animate-pulse">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">روش ما</h3>
+                    <p>استفاده از مثال‌های ملموس، تصاویر جذاب و توضیحات مرحله‌ای برای درک بهتر مفاهیم</p>
+                </div>
+                <div class="bg-github-dark border border-github-border rounded-xl p-6 card-hover animate-float">
+                    <div class="text-github-green text-4xl mb-4 animate-pulse">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">چشم‌انداز</h3>
+                    <p>ترغیب نسل جوان به یادگیری علوم نوین و آماده‌سازی آنان برای مشاغل آینده در این حوزه‌ها</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="topics" class="py-16 px-4 relative">
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-3xl font-bold mb-12 text-center gradient-text">موضوعات علوم نوین</h2>
+            
+            <!-- AI Section -->
+            <div class="mb-16">
+                <div class="dropdown cursor-pointer bg-github-gray border border-github-border rounded-xl p-6 mb-4 transition-all duration-300 hover:border-github-blue" onclick="toggleDropdown(this)">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-github-blue/20 text-github-blue p-3 rounded-lg mr-4 animate-pulse">
+                                <i class="fas fa-brain text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">هوش مصنوعی (AI)</h3>
+                        </div>
+                        <i class="fas fa-chevron-down dropdown-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="dropdown-content mt-6">
+                        <p class="mb-4 animate-fade-in">هوش مصنوعی به سیستم‌هایی گفته می‌شود که می‌توانند وظایفی را انجام دهند که معمولاً به هوش انسانی نیاز دارند. این شامل یادگیری، استدلال، حل مسئله، درک زبان طبیعی و تشخیص الگوها می‌شود.</p>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-blue animate-fade-in">انواع هوش مصنوعی:</h4>
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float">
+                                <h5 class="font-bold mb-2">1. هوش مصنوعی محدود (ANI)</h5>
+<p class="text-sm">سیستم‌هایی که برای انجام وظایف خاص طراحی شده‌اند، مانند دستیارهای صوتی یا سیستم‌های تشخیص چهره</p>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float-reverse">
+                                <h5 class="font-bold mb-2">2. هوش مصنوعی عمومی (AGI)</h5>
+                                <p class="text-sm">سیستم‌هایی با توانایی‌های شناختی مشابه انسان که می‌توانند هر کاری را که انسان می‌تواند انجام دهند</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-blue animate-fade-in">کاربردهای هوش مصنوعی:</h4>
+                        <div class="grid md:grid-cols-3 gap-3 mb-6">
+                            <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm text-center hover:bg-github-blue hover:text-white transition animate-fade-in">پزشکی و تشخیص بیماری</span>
+                            <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm text-center hover:bg-github-blue hover:text-white transition animate-fade-in">خودروهای خودران</span>
+                            <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm text-center hover:bg-github-blue hover:text-white transition animate-fade-in">تشخیص گفتار و چهره</span>
+                            <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm text-center hover:bg-github-blue hover:text-white transition animate-fade-in">پیش‌بینی آب و هوا</span>
+                            <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm text-center hover:bg-github-blue hover:text-white transition animate-fade-in">ربات‌های خدماتی</span>
+                            <span class="bg-github-dark border border-github-blue text-github-blue px-3 py-1 rounded-full text-sm text-center hover:bg-github-blue hover:text-white transition animate-fade-in">سیستم‌های توصیه‌گر</span>
+                        </div>
+                        
+                        <div class="bg-github-dark border border-github-blue rounded-lg p-4 mb-6 animate-fade-in">
+                            <h5 class="font-bold mb-2 text-github-blue">مثال ساده از هوش مصنوعی:</h5>
+                            <p>وقتی در یوتیوب ویدیویی را تماشا می‌کنید و سیستم به شما ویدیوهای مشابه پیشنهاد می‌دهد، این یک نمونه از هوش مصنوعی در عمل است. سیستم با تحلیل رفتار شما و دیگر کاربران، یاد می‌گیرد که چه محتوایی ممکن است برای شما جالب باشد.</p>
+                        </div>
+                        
+                        <div class="flex justify-center mt-6 animate-fade-in">
+                            <div class="w-full max-w-2xl bg-github-dark border border-github-border rounded-lg overflow-hidden">
+                                <div class="p-4 bg-github-gray border-b border-github-border flex items-center">
+                                    <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    <div class="text-sm mr-3">ai_example.py</div>
+                                </div>
+                                <div class="p-4 font-mono text-sm overflow-x-auto">
+                                    <span class="text-github-purple">import</span> tensorflow <span class="text-github-purple">as</span> tf<br>
+                                    <span class="text-github-purple">from</span> tensorflow <span class="text-github-purple">import</span> keras<br><br>
+                                    
+                                    <span class="text-gray-500"># ساخت یک مدل ساده برای تشخیص اعداد دستنویس</span><br>
+mnist = keras.datasets.mnist<br>
+                                    (x_train, y_train), (x_test, y_test) = mnist.load_data()<br><br>
+                                    
+                                    <span class="text-gray-500"># آموزش مدل</span><br>
+                                    model = keras.Sequential([<br>
+                                    &nbsp;&nbsp;keras.layers.Flatten(input_shape=(28, 28)),<br>
+                                    &nbsp;&nbsp;keras.layers.Dense(128, activation='relu'),<br>
+                                    &nbsp;&nbsp;keras.layers.Dense(10, activation='softmax')<br>
+                                    ])<br><br>
+                                    
+                                    model.compile(optimizer='adam',<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss='sparse_categorical_crossentropy',<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metrics=['accuracy'])<br><br>
+                                    
+                                    model.fit(x_train, y_train, epochs=5)<br><br>
+                                    
+                                    <span class="text-gray-500"># ارزیابی مدل</span><br>
+                                    test_loss, test_acc = model.evaluate(x_test, y_test)<br>
+                                    print(<span class="text-github-green">'دقت مدل:'</span>, test_acc)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Machine Learning Section -->
+            <div class="mb-16">
+                <div class="dropdown cursor-pointer bg-github-gray border border-github-border rounded-xl p-6 mb-4 transition-all duration-300 hover:border-github-purple" onclick="toggleDropdown(this)">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-github-purple/20 text-github-purple p-3 rounded-lg mr-4 animate-pulse">
+                                <i class="fas fa-cogs text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">یادگیری ماشین (Machine Learning)</h3>
+                        </div>
+                        <i class="fas fa-chevron-down dropdown-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="dropdown-content mt-6">
+                        <p class="mb-4 animate-fade-in">یادگیری ماشین زیرمجموعه‌ای از هوش مصنوعی است که به سیستم‌ها توانایی یادگیری و بهبود خودکار از تجربه را بدون برنامه‌نویسی صریح می‌دهد. این سیستم‌ها از داده‌ها یاد می‌گیرند و الگوها را شناسایی می‌کنند.</p>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-purple animate-fade-in">انواع یادگیری ماشین:</h4>
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float">
+                                <h5 class="font-bold mb-2">1. یادگیری نظارت شده</h5>
+                                <p class="text-sm">مدل با استفاده از داده‌های برچسب‌دار آموزش می‌بیند (مثل تشخیص اسپم در ایمیل)</p>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float-reverse">
+                                <h5 class="font-bold mb-2">2. یادگیری بدون نظارت</h5>
+                                <p class="text-sm">مدل الگوها را در داده‌های بدون برچسب کشف می‌کند (مثل خوشه‌بندی مشتریان)</p>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float">
+                                <h5 class="font-bold mb-2">3. یادگیری تقویتی</h5>
+                                <p
+<p class="text-sm">مدل از طریق آزمون و خطا و دریافت پاداش یاد می‌گیرد (مثل بازی شطرنج)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6 animate-fade-in">
+                            <div>
+                                <h5 class="font-bold mb-2 text-github-purple">مراحل ساخت یک مدل یادگیری ماشین:</h5>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>جمع‌آوری داده‌های مرتبط</li>
+                                    <li>پاکسازی و آماده‌سازی داده‌ها</li>
+                                    <li>انتخاب الگوریتم مناسب</li>
+                                    <li>آموزش مدل با داده‌های آموزشی</li>
+                                    <li>ارزیابی مدل با داده‌های تست</li>
+                                    <li>بهبود و تنظیم مدل</li>
+                                    <li>استقرار مدل در محیط واقعی</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-2 text-github-purple">الگوریتم‌های معروف:</h5>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>رگرسیون خطی - برای پیش‌بینی مقادیر پیوسته</li>
+                                    <li>درخت تصمیم - برای طبقه‌بندی و رگرسیون</li>
+                                    <li>ماشین بردار پشتیبان (SVM) - برای مسائل طبقه‌بندی</li>
+                                    <li>شبکه‌های عصبی - برای مسائل پیچیده مانند تشخیص تصویر</li>
+                                    <li>k-نزدیک‌ترین همسایه - برای طبقه‌بندی ساده</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-github-dark border border-github-purple rounded-lg p-4 mb-6 animate-fade-in">
+                            <h5 class="font-bold mb-2 text-github-purple">کاربردهای یادگیری ماشین در زندگی روزمره:</h5>
+                            <div class="grid md:grid-cols-2 gap-4 mt-3">
+                                <div class="flex items-start">
+                                    <i class="fas fa-search text-github-purple mt-1 mr-2 animate-pulse"></i>
+                                    <div>
+                                        <h6 class="font-bold">جستجوی اینترنتی</h6>
+                                        <p class="text-sm">موتورهای جستجو مانند گوگل از ML برای بهبود نتایج جستجو استفاده می‌کنند</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-comment-dots text-github-purple mt-1 mr-2 animate-pulse"></i>
+                                    <div>
+                                        <h6 class="font-bold">ترجمه ماشینی</h6>
+                                        <p class="text-sm">سرویس‌هایی مانند Google Translate از ML برای ترجمه بین زبان‌ها استفاده می‌کنند</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-film text-github-purple mt-1 mr-2 animate-pulse"></i>
+                                    <div>
+                                        <h6 class="font-bold">پیشنهاد محتوا</h6>
+                                        <p class="text-sm">نتفلیکس و یوتیوب از ML برای پیشنهاد ویدیوهای مرتبط استفاده می‌کنند</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-credit-card text-github-purple mt-1 mr-2 animate-pulse"></i>
+                                    <div>
+                                        <h6 class="font-bold">تشخیص تقلب</h6>
+                                        <p class="text-sm">بانک‌ها از ML برای شناسایی تراکنش‌ه
+<d
+<div
+ای غیرعادی استفاده می‌کنند</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IoT Section -->
+            <div class="mb-16">
+                <div class="dropdown cursor-pointer bg-github-gray border border-github-border rounded-xl p-6 mb-4 transition-all duration-300 hover:border-github-green" onclick="toggleDropdown(this)">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-github-green/20 text-github-green p-3 rounded-lg mr-4 animate-pulse">
+                                <i class="fas fa-network-wired text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">اینترنت اشیا (IoT)</h3>
+                        </div>
+                        <i class="fas fa-chevron-down dropdown-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="dropdown-content mt-6">
+                        <p class="mb-4 animate-fade-in">اینترنت اشیا به شبکه‌ای از اشیای فیزیکی اشاره دارد که به سنسورها، نرم‌افزارها و سایر فناوری‌ها مجهز شده‌اند تا بتوانند با دستگاه‌های دیگر از طریق اینترنت ارتباط برقرار کرده و داده‌ها را مبادله کنند.</p>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-green animate-fade-in">اجزای اصلی IoT:</h4>
+                        <div class="grid md:grid-cols-4 gap-3 mb-6">
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 text-center card-hover animate-float">
+                                <i class="fas fa-microchip text-3xl mb-2 text-github-green"></i>
+                                <h5 class="font-bold">سنسورها</h5>
+                                <p class="text-sm">جمع‌آوری داده‌ها از محیط</p>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 text-center card-hover animate-float-reverse">
+                                <i class="fas fa-wifi text-3xl mb-2 text-github-green"></i>
+                                <h5 class="font-bold">اتصال</h5>
+                                <p class="text-sm">ارسال داده‌ها به ابر</p>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 text-center card-hover animate-float">
+                                <i class="fas fa-cloud text-3xl mb-2 text-github-green"></i>
+                                <h5 class="font-bold">پردازش ابری</h5>
+                                <p class="text-sm">پردازش و تحلیل داده‌ها</p>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 text-center card-hover animate-float-reverse">
+                                <i class="fas fa-mobile-alt text-3xl mb-2 text-github-green"></i>
+                                <h5 class="font-bold">رابط کاربری</h5>
+                                <p class="text-sm">نمایش اطلاعات به کاربر</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-green animate-fade-in">کاربردهای اینترنت اشیا:</h4>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="animate-fade-in">
+                                <h5 class="font-bold mb-2 flex items-center">
+                                    <i class="fas fa-home mr-2 text-github-green animate-pulse"></i>
+                                    خانه هوشمند
+                                </h5>
+                                <p class="text-sm">سیستم‌های روشنایی، گرمایش، امنیتی و لوازم خانگی که از راه دور کنترل می‌شوند و می‌توانند خودکار عمل کنند.</p>
+<div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">ترموستات هوشمند</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">چراغ‌های هوشمند</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">قفل‌های هوشمند</span>
+                                </div>
+                            </div>
+                            <div class="animate-fade-in">
+                                <h5 class="font-bold mb-2 flex items-center">
+                                    <i class="fas fa-city mr-2 text-github-green animate-pulse"></i>
+                                    شهر هوشمند
+                                </h5>
+                                <p class="text-sm">بهینه‌سازی ترافیک، مدیریت پسماند، نظارت بر کیفیت هوا و بهبود خدمات شهری با استفاده از IoT.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">چراغ‌های راهنمایی هوشمند</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">سطل‌های زباله هوشمند</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">پارکینگ هوشمند</span>
+                                </div>
+                            </div>
+                            <div class="animate-fade-in">
+                                <h5 class="font-bold mb-2 flex items-center">
+                                    <i class="fas fa-heartbeat mr-2 text-github-green animate-pulse"></i>
+                                    سلامت هوشمند
+                                </h5>
+                                <p class="text-sm">دستگاه‌های پوشیدنی که علائم حیاتی را ردیابی می‌کنند و سیستم‌های نظارت از راه دور بر بیماران.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">ساعت‌های هوشمند</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">پایش‌گرهای قند خون</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">قرص‌های هوشمند</span>
+                                </div>
+                            </div>
+                            <div class="animate-fade-in">
+                                <h5 class="font-bold mb-2 flex items-center">
+                                    <i class="fas fa-industry mr-2 text-github-green animate-pulse"></i>
+                                    صنعت هوشمند
+                                </h5>
+                                <p class="text-sm">نظارت بر تجهیزات، پیش‌بینی خرابی ماشین‌آلات و بهینه‌سازی فرآیندهای تولیدی با IoT صنعتی (IIoT).</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">نظارت بر ماشین‌آلات</span>
+                                    <
+span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">مدیریت زنجیره تأمین</span>
+                                    <span class="bg-github-dark border border-github-green text-github-green px-2 py-1 rounded-full text-xs hover:bg-github-green hover:text-white transition">کنترل کیفیت</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-github-dark border border-github-green rounded-lg p-4 mb-6 animate-fade-in">
+                            <h5 class="font-bold mb-2 text-github-green">چالش‌های اینترنت اشیا:</h5>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-shield-alt text-sm mr-2 text-github-green animate-pulse"></i>
+                                        امنیت
+                                    </h6>
+                                    <p class="text-sm">دستگاه‌های IoT اغلب اهداف آسانی برای هکرها هستند و می‌توانند به نقاط ورود برای حمله تبدیل شوند.</p>
+                                </div>
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-lock text-sm mr-2 text-github-green animate-pulse"></i>
+                                        حریم خصوصی
+                                    </h6>
+                                    <p class="text-sm">جمع‌آوری داده‌های شخصی توسط دستگاه‌های IoT نگرانی‌هایی درباره حریم خصوصی ایجاد می‌کند.</p>
+                                </div>
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-plug text-sm mr-2 text-github-green animate-pulse"></i>
+                                        سازگاری
+                                    </h6>
+                                    <p class="text-sm">عدم استانداردسازی بین دستگاه‌های مختلف می‌تواند باعث مشکلات سازگاری شود.</p>
+                                </div>
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-battery-three-quarters text-sm mr-2 text-github-green animate-pulse"></i>
+                                        مصرف انرژی
+                                    </h6>
+                                    <p class="text-sm">بسیاری از دستگاه‌های IoT با باتری کار می‌کنند و بهینه‌سازی مصرف انرژی چالشی بزرگ است.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nanotechnology Section -->
+            <div class="mb-16">
+                <div class="dropdown cursor-pointer bg-github-gray border border-github-border rounded-xl p-6 mb-4 transition-all duration-300 hover:border-github-blue" onclick="toggleDropdown(this)">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="bg-github-blue/20 text-github-blue p-3 rounded-lg mr-4 animate-pulse">
+                                <i class="fas fa-atom text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">نانو فناوری (Nanotechnology)</h3>
+                        </div>
+                        <i class="fas fa-chevron-down dropdown-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="dropdown-content mt-6">
+                        <p class="mb-4 animate-fade-in">نانو فناوری علم مهندسی مواد در مقیاس اتمی و مولکولی است. این فناوری با مواد و ساختارهایی در ابعاد 1 تا 100 نانومتر
+نانومتر سروکار
+ومتر س
+روکار دارد (1 نانومتر = یک میلیاردم متر). در این مقیاس، مواد اغلب خواص فیزیکی، شیمیایی و بیولوژیکی منحصر به فردی از خود نشان می‌دهند.</p>
+                        
+                        <div class="flex items-center justify-center my-6 animate-fade-in">
+                            <div class="text-center">
+                                <div class="text-5xl font-bold gradient-text mb-2">1 نانومتر</div>
+                                <div class="text-sm opacity-80">= 0.000000001 متر</div>
+                                <div class="text-sm opacity-80 mt-2">(یک میلیاردم متر)</div>
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-blue animate-fade-in">مقایسه اندازه‌ها برای درک بهتر:</h4>
+                        <div class="bg-github-dark border border-github-border rounded-lg p-4 mb-6 animate-fade-in">
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <div class="w-16 text-sm opacity-80">موی انسان:</div>
+                                    <div class="flex-1 bg-gray-600 rounded-full h-2">
+                                        <div class="bg-github-blue rounded-full h-2" style="width: 100%"></div>
+                                    </div>
+                                    <div class="w-20 text-left text-sm opacity-80 mr-2">100,000 نانومتر</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-16 text-sm opacity-80">سلول قرمز خون:</div>
+                                    <div class="flex-1 bg-gray-600 rounded-full h-2">
+                                        <div class="bg-github-blue rounded-full h-2" style="width: 7%"></div>
+                                    </div>
+                                    <div class="w-20 text-left text-sm opacity-80 mr-2">7,000 نانومتر</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-16 text-sm opacity-80">باکتری:</div>
+                                    <div class="flex-1 bg-gray-600 rounded-full h-2">
+                                        <div class="bg-github-blue rounded-full h-2" style="width: 1%"></div>
+                                    </div>
+                                    <div class="w-20 text-left text-sm opacity-80 mr-2">1,000 نانومتر</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-16 text-sm opacity-80">محدوده نانو:</div>
+                                    <div class="flex-1 bg-gray-600 rounded-full h-2">
+                                        <div class="bg-github-blue rounded-full h-2" style="width: 0.1%"></div>
+                                    </div>
+                                    <div class="w-20 text-left text-sm opacity-80 mr-2">1-100 نانومتر</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-16 text-sm opacity-80">اتم:</div>
+                                    <div class="flex-1 bg-gray-600 rounded-full h-2">
+                                        <div class="bg-github-blue rounded-full h-2" style="width: 0.01%"></div>
+                                    </div>
+                                    <div class="w-20 text-left text-sm opacity-80 mr-2">0.1 نانومتر</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold mt-6 mb-3 text-github-blue animate-fade-in">کاربردهای نانو فناوری:</h4>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float">
+<h5 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-medkit mr-2 text-github-blue animate-pulse"></i>
+                                    پزشکی و سلامت
+                                </h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>داروهای هوشمند با هدف‌گیری دقیق سلول‌های بیمار</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>پوست مصنوعی برای بیماران سوختگی</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>تشخیص سریع بیماری‌ها با حسگرهای نانو</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>ایمپلنت‌های دندانی و استخوانی با دوام بیشتر</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float-reverse">
+                                <h5 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-leaf mr-2 text-github-blue animate-pulse"></i>
+                                    محیط زیست
+                                </h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>فیلترهای نانو برای تصفیه آب و هوا</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>پاک‌کننده‌های نانو برای حذف آلاینده‌ها</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>بسته‌بندی‌های زیست‌تخریب‌پذیر</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>سلول‌های خورشیدی با بازدهی بالاتر</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float">
+                                <h5 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-tshirt mr-2 text-github-blue animate-pulse"></i>
+                                    صنعت و مصرف‌کننده
+                                </h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>پارچه‌های ضد لک و ضد باکتری</span>
+</li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>پوشش‌های ضد خش برای شیشه و خودرو</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>باتری‌های با عمر طولانی‌تر</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>حافظه‌های کامپیوتری با ظرفیت بیشتر</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-github-dark border border-github-border rounded-lg p-4 card-hover animate-float-reverse">
+                                <h5 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-flask mr-2 text-github-blue animate-pulse"></i>
+                                    تحقیقات علمی
+                                </h5>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>میکروسکوپ‌های پیشرفته برای مشاهده اتم‌ها</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>مواد جدید با خواص منحصر به فرد</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>نانوروبات‌ها برای تحقیقات پزشکی</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-xs mt-2 mr-2 text-github-blue"></i>
+                                        <span>کاتالیزورهای نانو для واکنش‌های شیمیایی</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-github-dark border border-github-blue rounded-lg p-4 mb-6 animate-fade-in">
+                            <h5 class="font-bold mb-3 text-github-blue">نانو مواد معروف:</h5>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-circle-notch mr-2 text-sm text-github-blue animate-spin"></i>
+                                        نانو لوله‌های کربنی
+                                    </h6>
+                                    <p class="text-sm mt-1">استوانه‌های توخالی از اтом‌های کربن با استحکام فوق‌العاده و رسانایی الکتریکی بالا که در الکترونیک، مواد کامپوزیت و پزشکی کاربرد دارند.</p>
+                                </div>
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-circle-notch mr-2 text-sm text-github-blue animate-spin"></i>
+                                        گرافن
+                                    </h6>
+                                    <p class="text-sm mt-1">ورقه‌ای از اتم‌های کربن به ضخامت یک اتم که قوی‌تر از فولاد، سبک‌تر از آلوم
+ینیوم و رساناتر از مس است و کاربردهای وسیعی در صنایع مختلف دارد.</p>
+                                </div>
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-circle-notch mr-2 text-sm text-github-blue animate-spin"></i>
+                                        نقاط کوانتومی
+                                    </h6>
+                                    <p class="text-sm mt-1">بلورهای نیمه‌هادی در مقیاس نانو که بسته به اندازه‌شان نور با رنگ‌های مختلف ساطع می‌کنند و در نمایشگرها و تصویربرداری پزشکی استفاده می‌شوند.</p>
+                                </div>
+                                <div>
+                                    <h6 class="font-bold flex items-center">
+                                        <i class="fas fa-circle-notch mr-2 text-sm text-github-blue animate-spin"></i>
+                                        دندریمرها
+                                    </h6>
+                                    <p class="text-sm mt-1">مولکول‌های پلیمری شاخه‌ای با ساختار دقیق که در دارورسانی هدفمند و کاتالیزورها استفاده می‌شوند.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 px-4 bg-github-gray/50 border-y border-github-border relative overflow-hidden">
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-3xl font-bold mb-12 text-center gradient-text">گالری تصاویر</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1677442135136-760c813a743a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="AI" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">هوش مصنوعی</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="Machine Learning" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">یادگیری ماشین</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="IoT" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">اینترنت اشیا</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <imgsrc="https://images.
+unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="Nanotech" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">نانو فناوری</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1639762681057-1e71aac0af9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="Quantum" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">محاسبات کوانتومی</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="Robotics" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">رباتیک</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="VR" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">واقعیت مجازی</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-lg h-48 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="DNA" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white font-bold">مهندسی ژنتیک</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center animate-fade-in">
+                <button class="border border-github-blue text-github-blue px-6 py-3 rounded-lg font-bold hover:bg-github-blue hover:bg-opacity-10 transition flex items-center mx-auto group">
+                    <i class="fas fa-images ml-2 group-hover:rotate-12 transition-transform"></i>
+                    مشاهده گالری کامل
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-github-gray border-t border-github-bo
+rder">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 space-x-reverse mb-4 md:mb-0">
+                    <i class="fas fa-robot text-2xl text-github-blue"></i>
+                    <h2 class="text-xl font-bold gradient-text">هوش مصنوعی و علوم نوین</h2>
+                </div>
+                <div class="text-sm opacity-80 text-center md:text-right">
+                    <p>طراحی و توسعه توسط رعنا پرموزه - هنرستان والفجر</p>
+                    <p>استان فارس، ناحیه زرین دشت، شهر پیر</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Dropdown functionality
+        function toggleDropdown(element) {
+            element.classList.toggle('active');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Add animation class when elements come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body></html>
+ANI)</h5>
